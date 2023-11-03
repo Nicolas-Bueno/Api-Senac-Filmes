@@ -6,6 +6,7 @@ package com.api.senac.filme.controller;
 
 import com.api.senac.filme.entity.Filme;
 import com.api.senac.filme.service.FilmeService;
+import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,7 @@ public class FilmeController {
     }
     
     @PostMapping("/adicionar")
-    public ResponseEntity<Filme> addFilme(@RequestBody Filme filme){
+    public ResponseEntity<Filme> addFilme(@Valid @RequestBody Filme filme){
         var novoFilme = filmeService.cadastraFilme(filme);
         
         return new ResponseEntity<>(novoFilme, HttpStatus.CREATED);
