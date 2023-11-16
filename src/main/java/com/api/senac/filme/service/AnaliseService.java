@@ -2,6 +2,7 @@ package com.api.senac.filme.service;
 
 import com.api.senac.filme.data.AnaliseRepository;
 import com.api.senac.filme.entity.Analise;
+import com.api.senac.filme.entity.Filme;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,9 +51,15 @@ public class AnaliseService {
             // Exclua a análise existente do banco de dados
             analiseRepository.delete(existingAnalise);
         } else {
-            // Trate o caso em que a análise com o ID fornecido não existe
-            // Você pode lançar uma exceção ou retornar uma resposta adequada, dependendo da sua lógica de negócios.
+            
         }
     }
-
+    
+    public List<Analise> listarTodasAnalises() {
+        return analiseRepository.findAll();
+    }
+    
+    public Analise buscarAnalisePorId(Integer id) {
+        return analiseRepository.findById(id).orElse(null);
+    }
 }

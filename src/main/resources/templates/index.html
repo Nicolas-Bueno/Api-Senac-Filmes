@@ -1,0 +1,40 @@
+<!DOCTYPE html> 
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> 
+<head> 
+<meta charset="utf-8"> 
+<title>Gerenciamento de Filmes</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+</head> 
+<body> 
+<div class="container my-2"> 
+<h1>Lista de Filmes
+<a th:href="@{/criarFilmeForm}" class="btn btn-primary btn-sm mb-3"> Adicionar </a> 
+<table border="1" class="table table-striped table-responsive-md"> 
+<thead> 
+<tr> 
+<th>ID 
+<th>Nome 
+<th>Sinopse 
+<th>Genero
+<th>Ano Lançamento 
+</tr> 
+</thead> 
+<tbody> 
+<tr th:each="filme : ${listarFilmes}">
+<td th:text="${filme.id}"> 
+<td th:text="${filme.nome}"> 
+<td th:text="${filme.sinopse}">  
+<td th:text="${filme.genero}"> 
+<td th:text="${filme.anoLancamento}">
+
+<td>
+<a th:href="@{/adicionaAnalise/{id}(id=${filme.id})}" class="btn btn-primary">Analisar</a>
+<a th:href="@{/atualizarFilmeForm/{id}(id=${filme.id})}" class="btn btn-primary">Atualisar</a>
+<a th:href="@{/deletarFilme/{id}(id=${filme.id})}" class="btn btn-danger">Excluir</a>
+</td> 
+</tr> 
+</tbody> 
+</table>  
+</div> 
+</body>     
+</html> 

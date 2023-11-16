@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  *
@@ -44,6 +45,7 @@ public class FilmeWebController {
     }
     
     //Post
+    @PostMapping("/salvarFilme")
     public String salvarFilme(@Valid @ModelAttribute("filme") Filme filme, BindingResult result){
         if (result.hasErrors()) {
             return "inserir";

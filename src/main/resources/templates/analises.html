@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"> 
+<head> 
+    <meta charset="utf-8"> 
+    <title>Gerenciamento de Análises</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+</head> 
+<body> 
+    <div class="container my-2"> 
+        <h1>Lista de Análises</h1>
+        <table class="table table-striped table-responsive-md">
+            <thead>
+    <tr>
+        <th>ID Filme</th>
+        <th>Nome do Filme</th>
+        <th>Sinopse do Filme</th>
+        <th>Gênero do Filme</th>
+        <th>Ano de Lançamento do Filme</th>
+        <th>Análise</th>
+        <th>Nota</th>
+    </tr>
+</thead>
+<tbody>
+    <tr th:each="analise : ${listarAnalises}">
+        <th:block th:if="${analise.filme != null}">
+            <td th:text="${analise.filme.id}"></td>
+            <td th:text="${analise.filme.nome}"></td>
+            <td th:text="${analise.filme.sinopse}"></td>
+            <td th:text="${analise.filme.genero}"></td>
+            <td th:text="${analise.filme.anoLancamento}"></td>
+        </th:block>
+
+        <td th:text="${analise.textoAnalise}"></td>
+        <td th:text="${analise.nota}"></td>
+        <td>
+<a th:href="@{/atualizarAnalise/{id}(id=${analise.id})}" class="btn btn-primary">Atualizar</a>
+<a th:href="@{/deletarAnalise/{id}(id=${analise.id})}" class="btn btn-danger">Excluir</a>
+</td> 
+    </tr>
+</tbody>
+
+        </table>
+    </div> 
+</body>
+</html>
+
