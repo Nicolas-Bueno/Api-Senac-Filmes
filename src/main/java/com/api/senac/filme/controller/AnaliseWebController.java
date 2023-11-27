@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,13 +28,17 @@ public class AnaliseWebController {
     FilmeService filmeService;
 
     @GetMapping("/adicionaAnalise/{idFilme}")
-    public String getFormAnalise(@PathVariable(value = "idFilme") Integer id, Model model) {
+    public String getFormAnalise(@CookieValue(name="pref-nome", defaultValue="") String nome,
+            @CookieValue(name="pref-estilo", defaultValue="claro")String tema,
+            @PathVariable(value = "idFilme") Integer id, Model model) {
         Filme filme = filmeService.getFilmeId(id);
         Analise analise = new Analise();
         analise.setFilme(filme);
 
         model.addAttribute("analise", analise);
         model.addAttribute("filme", filme);
+        model.addAttribute("nome", nome);
+        model.addAttribute("css", tema);
 
         return "inserirAnalise";
     }
@@ -53,17 +58,23 @@ public class AnaliseWebController {
 
     // Método para exibir o formulário de atualização de análise
     @GetMapping("/atualizarAnalise/{id}")
-    public String atualizarAnaliseForm(@PathVariable(value = "id") Integer id, Model model) {
+    public String atualizarAnaliseForm(@CookieValue(name="pref-nome", defaultValue="") String nome,
+            @CookieValue(name="pref-estilo", defaultValue="claro")String tema,
+            @PathVariable(value = "id") Integer id, Model model) {
         Analise analise = analiseService.buscarAnalisePorId(id);
 
         model.addAttribute("analise", analise);
+        model.addAttribute("nome", nome);
+        model.addAttribute("css", tema);
 
         return "atualizarAnalise";
     }
 
     //(requisição PUT)
     @PostMapping("/atualizarAnalise/{id}")
-    public String atualizarAnalise(@PathVariable(value = "id") Integer id, @ModelAttribute Analise analise, Model model) {
+    public String atualizarAnalise(@CookieValue(name="pref-nome", defaultValue="") String nome,
+            @CookieValue(name="pref-estilo", defaultValue="claro")String tema,
+            @PathVariable(value = "id") Integer id, @ModelAttribute Analise analise, Model model) {
         Analise analiseExistente = analiseService.buscarAnalisePorId(id);
 
         if (analiseExistente != null) {
@@ -71,6 +82,8 @@ public class AnaliseWebController {
             analiseExistente.setNota(analise.getNota());
 
             analiseService.atualizarAnalise(analiseExistente);
+            model.addAttribute("nome", nome);
+            model.addAttribute("css", tema);
 
             return "redirect:/";
         } else {
@@ -79,9 +92,13 @@ public class AnaliseWebController {
     }
 
     @GetMapping("/analises")
-    public String listarAnalises(Model model) {
+    public String listarAnalises(@CookieValue(name="pref-nome", defaultValue="") String nome,
+            @CookieValue(name="pref-estilo", defaultValue="claro")String tema,
+            Model model) {
         List<Analise> listarAnalises = analiseService.listarTodasAnalises();
         model.addAttribute("listarAnalises", listarAnalises);
+        model.addAttribute("nome", nome);
+        model.addAttribute("css", tema);
         return "analises";
     }
 

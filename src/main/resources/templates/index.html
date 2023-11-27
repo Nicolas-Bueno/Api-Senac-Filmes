@@ -4,11 +4,13 @@
 <meta charset="utf-8"> 
 <title>Gerenciamento de Filmes</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> 
+<link th:href="@{/css/}+${css}+'.css'" rel="stylesheet" type="text/css"/>
 </head> 
 <body> 
 <div class="container my-2"> 
 <h1>Lista de Filmes
-<a th:href="@{/criarFilmeForm}" class="btn btn-primary btn-sm mb-3"> Adicionar </a> 
+<a th:href="@{/criaFilmeForm}" class="btn btn-primary btn-sm mb-3"> Adicionar </a>
+<a th:href="@{/preferencias}" class="btn btn-primary btn-sm mb-3"> Tema </a>
 <table border="1" class="table table-striped table-responsive-md"> 
 <thead> 
 <tr> 
@@ -29,7 +31,7 @@
 
 <td>
 <a th:href="@{/adicionaAnalise/{id}(id=${filme.id})}" class="btn btn-primary">Analisar</a>
-<a th:href="@{/atualizarFilmeForm/{id}(id=${filme.id})}" class="btn btn-primary">Atualisar</a>
+<a th:href="@{/atualizarFilmeForm/{id}(id=${filme.id})}" class="btn btn-primary">Atualizar</a>
 <a th:href="@{/deletarFilme/{id}(id=${filme.id})}" class="btn btn-danger">Excluir</a>
 </td> 
 </tr> 
